@@ -1,13 +1,16 @@
 import os
 
+print('''Welcome to the New folder.exe virus removal tool. Plz specify the path or drive to scan..!
+PATH example:- C:\\Users\\user\\Desktop\\my_folder
+DRIVE example:- D:
+	''')
+
 def get_path():
 	while True:
-		try:
-			route = str(input('Enter the route: '))
-			os.chdir(route)
+		route = str(input('Enter the route  or enter \'q\' to exit: '))
+		if os.path.exists(route) or route=="q":
 			return route
-			break
-		except:
+		else:
 			print("Invalid path..!")
 			continue
 
@@ -38,14 +41,20 @@ def check_status():
 
 
 def main():
-	path = get_path()
-	scan(path)
-	check_status()
+	while True:
+		path = get_path()
+		if path=="q":
+			break
+		scan(path)
+		check_status()
+		
+		try_again = str(input("Scan another Drive (reply \"y\" for Yes and \"n\" for No:)"))
+		if try_again.lower() == "n" :
+			break
+		elif try_again.lower=="y":
+			continue
+		else: 
+			print("Please enter a valid input..!")
+			continue
 
-while True:
-	main()
-	try_again = str(input("Scan another Drive (reply \"y\" for Yes and \"n\" for No:)"))
-	if try_again.lower() == "n" :
-		break
-	elif try_again.lower=="y":
-		continue
+main()	
